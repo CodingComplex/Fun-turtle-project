@@ -6,14 +6,14 @@ import colorsys as col
 bgcolor('black')
 screen = Screen()
 screen.tracer(0, 0)
-n = 100
+
 army = [
-    Turtle() for i in range(n)
+    Turtle() for i in range(100)
 ]
-k = 0
+o = 0
 for T in army:
-    c = col.hsv_to_rgb(k, 1, 1)
-    k += 1/n
+    c = col.hsv_to_rgb(o, 1, 1)
+    o += 1/100
     T.color(c)
     T.up()
     T.goto(
@@ -22,15 +22,17 @@ for T in army:
     )
 
 
-def next():
-    for i in range(n):
-        angl = army[i].towards(
-            army[(i+1) %n]
+def action():
+    for i in range(100):
+        angle = army[i].towards(
+            army[(i+1) % 100]
         )
-        army[i].seth(angl)
+        army[i].seth(angle)
     for T in army:
         T.forward(3)
     screen.update()
-    screen.ontimer(next, 1)
-next()
+    screen.ontimer(action, 1)
+
+
+action()
 done()
